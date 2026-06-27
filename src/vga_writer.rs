@@ -9,6 +9,18 @@ pub struct VGAWriter {
 }
 
 impl VGAWriter {
+    ///### create new instance of VGAWriter
+    /// 
+    /// ### Example:
+    /// ```no_run
+    /// pub mod vga_writer;
+    /// 
+    /// let mut vga = vga_writer::VGAWriter::init();
+    /// 
+    /// vga.print("Hello World");
+    /// //Expected output:
+    /// //Hello World
+    /// ```
     pub fn init() -> VGAWriter {
         VGAWriter {
             vga_addr: 0xb8000 as *mut u8,
@@ -102,7 +114,7 @@ impl VGAWriter {
         }
     }
 
-        /// ### Print a complete string
+    /// ### Print a complete string
     /// 
     /// ### Example:
     /// ```no_run
