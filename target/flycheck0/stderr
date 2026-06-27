@@ -1,5 +1,5 @@
-   0.026377400s  INFO prepare_target{force=false package_id=HLQ_OS v0.1.0 (D:\Private_Proj\HLQ_OS) target="HLQ_OS"}: cargo::core::compiler::fingerprint: fingerprint error for HLQ_OS v0.1.0 (D:\Private_Proj\HLQ_OS)/Check { test: false }/TargetInner { name_inferred: true, harness: false, ..: lib_target("HLQ_OS", ["staticlib"], "D:\\Private_Proj\\HLQ_OS\\src\\lib.rs", Edition2024) }
-   0.026473600s  INFO prepare_target{force=false package_id=HLQ_OS v0.1.0 (D:\Private_Proj\HLQ_OS) target="HLQ_OS"}: cargo::core::compiler::fingerprint:     err: failed to read `D:\Private_Proj\HLQ_OS\target\debug\.fingerprint\HLQ_OS-384b2b46185329c8\lib-HLQ_OS`
+   0.020715500s  INFO prepare_target{force=false package_id=HLQ_OS v0.1.0 (D:\Private_Proj\HLQ_OS) target="HLQ_OS"}: cargo::core::compiler::fingerprint: fingerprint error for HLQ_OS v0.1.0 (D:\Private_Proj\HLQ_OS)/Check { test: false }/TargetInner { name_inferred: true, harness: false, ..: lib_target("HLQ_OS", ["staticlib"], "D:\\Private_Proj\\HLQ_OS\\src\\lib.rs", Edition2024) }
+   0.020798200s  INFO prepare_target{force=false package_id=HLQ_OS v0.1.0 (D:\Private_Proj\HLQ_OS) target="HLQ_OS"}: cargo::core::compiler::fingerprint:     err: failed to read `D:\Private_Proj\HLQ_OS\target\debug\.fingerprint\HLQ_OS-384b2b46185329c8\lib-HLQ_OS`
 
 Caused by:
     The system cannot find the file specified. (os error 2)
@@ -26,8 +26,8 @@ Stack backtrace:
   18: git_midx_writer_dump
   19: BaseThreadInitThunk
   20: RtlUserThreadStart
-   0.045718500s  INFO prepare_target{force=false package_id=HLQ_OS v0.1.0 (D:\Private_Proj\HLQ_OS) target="HLQ_OS"}: cargo::core::compiler::fingerprint: fingerprint error for HLQ_OS v0.1.0 (D:\Private_Proj\HLQ_OS)/Check { test: true }/TargetInner { name_inferred: true, harness: false, ..: lib_target("HLQ_OS", ["staticlib"], "D:\\Private_Proj\\HLQ_OS\\src\\lib.rs", Edition2024) }
-   0.045760400s  INFO prepare_target{force=false package_id=HLQ_OS v0.1.0 (D:\Private_Proj\HLQ_OS) target="HLQ_OS"}: cargo::core::compiler::fingerprint:     err: failed to read `D:\Private_Proj\HLQ_OS\target\debug\.fingerprint\HLQ_OS-447747aed593b9bd\test-lib-HLQ_OS`
+   0.036332200s  INFO prepare_target{force=false package_id=HLQ_OS v0.1.0 (D:\Private_Proj\HLQ_OS) target="HLQ_OS"}: cargo::core::compiler::fingerprint: fingerprint error for HLQ_OS v0.1.0 (D:\Private_Proj\HLQ_OS)/Check { test: true }/TargetInner { name_inferred: true, harness: false, ..: lib_target("HLQ_OS", ["staticlib"], "D:\\Private_Proj\\HLQ_OS\\src\\lib.rs", Edition2024) }
+   0.036367700s  INFO prepare_target{force=false package_id=HLQ_OS v0.1.0 (D:\Private_Proj\HLQ_OS) target="HLQ_OS"}: cargo::core::compiler::fingerprint:     err: failed to read `D:\Private_Proj\HLQ_OS\target\debug\.fingerprint\HLQ_OS-447747aed593b9bd\test-lib-HLQ_OS`
 
 Caused by:
     The system cannot find the file specified. (os error 2)
@@ -55,6 +55,6 @@ Stack backtrace:
   19: BaseThreadInitThunk
   20: RtlUserThreadStart
     Checking HLQ_OS v0.1.0 (D:\Private_Proj\HLQ_OS)
-error: could not compile `HLQ_OS` (lib) due to 1 previous error
-warning: build failed, waiting for other jobs to finish...
 error: could not compile `HLQ_OS` (lib test) due to 1 previous error
+warning: build failed, waiting for other jobs to finish...
+error: could not compile `HLQ_OS` (lib) due to 1 previous error
