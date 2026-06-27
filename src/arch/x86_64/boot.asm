@@ -4,6 +4,8 @@ extern long_mode_start
 section .text
 bits 32
 start:
+    call clear_cmd
+
     mov esp, stack_top
     
     call check_multiboot
@@ -48,6 +50,39 @@ set_up_page_tables:
     inc ecx            ; increase counter
     cmp ecx, 512       ; if counter == 512, the whole P2 table is mapped
     jne .map_p2_table  ; else map the next entry
+
+    ret
+
+clear_cmd:
+    mov esi, eax          ; save magic number
+
+    mov eax, 0x0          ; eax = current row (0..24)
+
+.clear_cmd_loop:
+    call clear_row
+
+    inc eax
+    cmp eax, 25           ; 25 rows
+    jne .clear_cmd_loop
+
+    mov eax, esi          ; restore magic number
+    ret
+
+clear_row:
+    ; eax = row index (caller sets this)
+    mov ecx, 0x0          ; ecx = current col (0..79)
+
+.clear_row_loop:
+    imul edx, eax, 80     ; edx = row * 80
+    add  edx, ecx         ; edx = row * 80 + col
+    shl  edx, 1           ; edx *= 2  (each cell is 2 bytes)
+
+    mov byte [0xB8000 + edx],     0x20  ; character = space
+    mov byte [0xB8000 + edx + 1], 0x07  ; attribute = white on black
+
+    inc ecx
+    cmp ecx, 80           ; 80 cols
+    jne .clear_row_loop
 
     ret
 
