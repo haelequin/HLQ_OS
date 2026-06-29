@@ -1,8 +1,12 @@
 #![no_std]
 #![no_main]
 
+#![feature(abi_x86_interrupt)]
+
+use core::fmt::Write;
 use core::panic::PanicInfo;
 pub mod vga_writer;
+pub mod interrupts;
 
 /// This is your OS entry point. 
 /// `extern "C"` forces the compiler to use the standard C calling convention, 
@@ -14,8 +18,8 @@ pub extern "C" fn rust_main() -> ! {
     vga_writer.set_color(vga_writer::VGAOutColor::Green, vga_writer::VGAOutColor::Black);
 
     vga_writer.line_o = 2;//start from line no.3 to avoid overlap with 2 previous line of the text print by boot.asm and long_mode.asm
-    
-    vga_writer.println("Hello world!");
+
+    write!(vga_writer, "HELLO {}", 322);
 
     loop {}
 }

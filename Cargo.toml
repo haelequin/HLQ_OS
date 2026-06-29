@@ -6,3 +6,6 @@ edition = "2024"
 [lib]
 crate-type = ["staticlib"]
 harness = false
+
+[dependencies]
+x86_64 = "0.15.4"

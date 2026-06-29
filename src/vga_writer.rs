@@ -22,8 +22,16 @@ pub enum VGAOutColor {
     White = 15,
 }
 
+/// Print library for HLQ OS
+/// ```
+///use core::fmt::Write;
+/// 
+///let mut vga_writer = vga_writer::VGAWriter::init();
+///
+/// write!(vga_writer, "HELLO {}", 322);
+/// ```
 pub struct VGAWriter {
-    pub vga_addr: *mut u8,
+    vga_addr: *mut u8,
     pub line_char_o: isize,//index of currect column
     pub line_o: isize,//index of current row (line)
     pub color: u8,
@@ -142,7 +150,7 @@ impl VGAWriter {
     /// //Expected output:
     /// //A
     /// ```
-    pub fn print_char(&mut self, c:u8) -> bool {
+    pub fn print_char(&mut self, char:u8) -> bool {
         if self.line_char_o >= COL_SIZE {
             self.line_o += self.line_char_o / COL_SIZE;
 
@@ -158,10 +166,8 @@ impl VGAWriter {
             }
         }
 
-        let mut c = c;
-
-        c = match c {
-            0x20..=0x7e => c, //Only print Ascii char
+        let c = match char {
+            0x20..=0x7e => char, //Only print Ascii char
             _ => 0xfe, //If not ascii char then print "■"
         };
 
@@ -223,6 +229,7 @@ impl VGAWriter {
 
         for c in 0..(ROW_SIZE * COL_SIZE) {
             unsafe {
+                *self.vga_addr.offset(c * 2) = 0x0;
                 *self.vga_addr.offset(c * 2 + 1) = 0x0;
             }
         }
@@ -237,8 +244,19 @@ impl VGAWriter {
 
         for c in 0..COL_SIZE {
             unsafe {
+                *self.vga_addr.offset((line_of + c) * 2) = 0x0;
                 *self.vga_addr.offset((line_of + c) * 2 + 1) = 0x0;
             }
         }
     }
 }
+
+use core::fmt;
+
+impl fmt::Write for VGAWriter {
+    fn write_str(&mut self, s: &str) -> fmt::Result {
+        self.print(s);
+        Ok(())
+    }
+}
+

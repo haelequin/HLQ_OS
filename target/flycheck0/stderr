@@ -1,5 +1,5 @@
-   0.020211700s  INFO prepare_target{force=false package_id=HLQ_OS v0.1.0 (D:\Private_Proj\HLQ_OS) target="HLQ_OS"}: cargo::core::compiler::fingerprint: fingerprint error for HLQ_OS v0.1.0 (D:\Private_Proj\HLQ_OS)/Check { test: false }/TargetInner { name_inferred: true, harness: false, ..: lib_target("HLQ_OS", ["staticlib"], "D:\\Private_Proj\\HLQ_OS\\src\\lib.rs", Edition2024) }
-   0.020275700s  INFO prepare_target{force=false package_id=HLQ_OS v0.1.0 (D:\Private_Proj\HLQ_OS) target="HLQ_OS"}: cargo::core::compiler::fingerprint:     err: failed to read `D:\Private_Proj\HLQ_OS\target\debug\.fingerprint\HLQ_OS-384b2b46185329c8\lib-HLQ_OS`
+   0.027482300s  INFO prepare_target{force=false package_id=HLQ_OS v0.1.0 (D:\Private_Proj\HLQ_OS) target="HLQ_OS"}: cargo::core::compiler::fingerprint: fingerprint error for HLQ_OS v0.1.0 (D:\Private_Proj\HLQ_OS)/Check { test: false }/TargetInner { name_inferred: true, harness: false, ..: lib_target("HLQ_OS", ["staticlib"], "D:\\Private_Proj\\HLQ_OS\\src\\lib.rs", Edition2024) }
+   0.027558500s  INFO prepare_target{force=false package_id=HLQ_OS v0.1.0 (D:\Private_Proj\HLQ_OS) target="HLQ_OS"}: cargo::core::compiler::fingerprint:     err: failed to read `D:\Private_Proj\HLQ_OS\target\debug\.fingerprint\HLQ_OS-7e988c6a6cb6aeb1\lib-HLQ_OS`
 
 Caused by:
     The system cannot find the file specified. (os error 2)
@@ -26,8 +26,37 @@ Stack backtrace:
   18: git_midx_writer_dump
   19: BaseThreadInitThunk
   20: RtlUserThreadStart
-   0.032898500s  INFO prepare_target{force=false package_id=HLQ_OS v0.1.0 (D:\Private_Proj\HLQ_OS) target="HLQ_OS"}: cargo::core::compiler::fingerprint: fingerprint error for HLQ_OS v0.1.0 (D:\Private_Proj\HLQ_OS)/Check { test: true }/TargetInner { name_inferred: true, harness: false, ..: lib_target("HLQ_OS", ["staticlib"], "D:\\Private_Proj\\HLQ_OS\\src\\lib.rs", Edition2024) }
-   0.032925600s  INFO prepare_target{force=false package_id=HLQ_OS v0.1.0 (D:\Private_Proj\HLQ_OS) target="HLQ_OS"}: cargo::core::compiler::fingerprint:     err: failed to read `D:\Private_Proj\HLQ_OS\target\debug\.fingerprint\HLQ_OS-447747aed593b9bd\test-lib-HLQ_OS`
+   0.042882100s  INFO prepare_target{force=false package_id=x86_64 v0.15.4 target="x86_64"}: cargo::core::compiler::fingerprint: fingerprint error for x86_64 v0.15.4/Check { test: false }/TargetInner { ..: lib_target("x86_64", ["lib"], "D:\\Rust\\cargo\\registry\\src\\index.crates.io-1949cf8c6b5b557f\\x86_64-0.15.4\\src\\lib.rs", Edition2018) }
+   0.042915200s  INFO prepare_target{force=false package_id=x86_64 v0.15.4 target="x86_64"}: cargo::core::compiler::fingerprint:     err: failed to read `D:\Private_Proj\HLQ_OS\target\debug\.fingerprint\x86_64-b087e75d48e45c77\lib-x86_64`
+
+Caused by:
+    The system cannot find the file specified. (os error 2)
+
+Stack backtrace:
+   0: git_midx_writer_dump
+   1: git_midx_writer_dump
+   2: git_midx_writer_dump
+   3: git_midx_writer_dump
+   4: git_filter_source_repo
+   5: git_filter_source_repo
+   6: git_filter_source_repo
+   7: git_filter_source_repo
+   8: git_filter_source_repo
+   9: git_filter_source_repo
+  10: git_filter_source_repo
+  11: git_filter_source_repo
+  12: git_libgit2_prerelease
+  13: <unknown>
+  14: <unknown>
+  15: <unknown>
+  16: <unknown>
+  17: git_midx_writer_dump
+  18: git_filter_source_repo
+  19: git_midx_writer_dump
+  20: BaseThreadInitThunk
+  21: RtlUserThreadStart
+   0.047205300s  INFO prepare_target{force=false package_id=HLQ_OS v0.1.0 (D:\Private_Proj\HLQ_OS) target="HLQ_OS"}: cargo::core::compiler::fingerprint: fingerprint error for HLQ_OS v0.1.0 (D:\Private_Proj\HLQ_OS)/Check { test: true }/TargetInner { name_inferred: true, harness: false, ..: lib_target("HLQ_OS", ["staticlib"], "D:\\Private_Proj\\HLQ_OS\\src\\lib.rs", Edition2024) }
+   0.047241200s  INFO prepare_target{force=false package_id=HLQ_OS v0.1.0 (D:\Private_Proj\HLQ_OS) target="HLQ_OS"}: cargo::core::compiler::fingerprint:     err: failed to read `D:\Private_Proj\HLQ_OS\target\debug\.fingerprint\HLQ_OS-59e614261b9aa3d1\test-lib-HLQ_OS`
 
 Caused by:
     The system cannot find the file specified. (os error 2)
@@ -54,7 +83,5 @@ Stack backtrace:
   18: git_midx_writer_dump
   19: BaseThreadInitThunk
   20: RtlUserThreadStart
-    Checking HLQ_OS v0.1.0 (D:\Private_Proj\HLQ_OS)
-error: could not compile `HLQ_OS` (lib test) due to 1 previous error
-warning: build failed, waiting for other jobs to finish...
-error: could not compile `HLQ_OS` (lib) due to 1 previous error
+    Checking x86_64 v0.15.4
+error: could not compile `x86_64` (lib) due to 2 previous errors
