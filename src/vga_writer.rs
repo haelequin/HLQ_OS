@@ -30,6 +30,7 @@ pub enum VGAOutColor {
 ///
 /// write!(vga_writer, "HELLO {}", 322);
 /// ```
+#[derive(Debug)]
 pub struct VGAWriter {
     vga_addr: *mut u8,
     pub line_char_o: isize,//index of currect column

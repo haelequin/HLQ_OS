@@ -16,7 +16,7 @@ long_mode_start:
     mov rax, 0x0247024e024f024c
     mov qword [0xb80a0], rax
     ;Space
-    mov dword [0x80a8], 0x0220
+    mov dword [0xb80a8], 0x0220
     ;'BOOT'
     mov rax, 0x0254024f024f0242
     mov qword [0xb80aa], rax

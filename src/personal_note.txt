@@ -1,1 +1,2 @@
 cd /../../../mnt/d/Private_Proj/HLQ_OS
+qemu-system-x86_64 -cdrom build/hlq-os-x86_64.iso -d int -no-reboot -no-shutdown

@@ -3,6 +3,7 @@ kernel := build/kernel-$(arch).bin
 iso := build/hlq-os-$(arch).iso
 
 # Path to your compiled Rust static library
+# rust_os := target/x86_64-hlq_os/debug/libHLQ_OS.a
 rust_os := target/x86_64-unknown-none/debug/libHLQ_OS.a
 
 linker_script := src/arch/$(arch)/linker.ld
@@ -34,6 +35,7 @@ $(iso): $(kernel) $(grub_cfg)
 # 1. Force cargo to check for changes every build
 cargo:
 	@cargo build --target x86_64-unknown-none
+# 	@cargo build --target x86_64-hlq_os.json -Zjson-target-spec -Zbuild-std=core,compiler_builtins -Zbuild-std-features=compiler-builtins-mem
 
 # 2. Add $(rust_os) as a dependency and link it
 $(kernel): cargo $(assembly_object_files) $(linker_script)

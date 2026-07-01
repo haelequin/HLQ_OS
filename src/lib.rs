@@ -1,10 +1,10 @@
 #![no_std]
 #![no_main]
 
-#![feature(abi_x86_interrupt)]
-
 use core::fmt::Write;
 use core::panic::PanicInfo;
+
+use crate::vga_writer::VGAWriter;
 pub mod vga_writer;
 pub mod interrupts;
 
@@ -12,14 +12,20 @@ pub mod interrupts;
 /// `extern "C"` forces the compiler to use the standard C calling convention, 
 /// and `#[no_mangle]` keeps the name exactly `rust_main` so assembly can find it.
 #[unsafe(no_mangle)]
-pub extern "C" fn rust_main() -> ! {
+pub extern "C" fn rust_main(mbi_ptr: usize) -> ! {
+    unsafe {
+        interrupts::init_idt();
+
+        core::arch::asm!("int3");
+    }
+
     let mut vga_writer = vga_writer::VGAWriter::init();
-
+    
     vga_writer.set_color(vga_writer::VGAOutColor::Green, vga_writer::VGAOutColor::Black);
-
+    
     vga_writer.line_o = 2;//start from line no.3 to avoid overlap with 2 previous line of the text print by boot.asm and long_mode.asm
 
-    write!(vga_writer, "HELLO {}", 322);
+    write!(vga_writer, "hello world! using vga buffer");
 
     loop {}
 }

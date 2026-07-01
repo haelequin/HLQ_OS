@@ -4,5 +4,6 @@ ld, objdump, qemu-system-x86_64, grub-mkrescue, xorriso, Nasm
 
 run:
 rustup override set nightly
+cargo install xargo
 
 target x86_64 run cmd: rustup target add x86_64-unknown-none

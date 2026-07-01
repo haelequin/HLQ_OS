@@ -1,0 +1,15 @@
+/mnt/d/Private_Proj/HLQ_OS/target/x86_64-unknown-none/debug/deps/thiserror-05e0292d2b1a5aa7.d: /home/hlq/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/thiserror-2.0.18/src/lib.rs /home/hlq/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/thiserror-2.0.18/src/aserror.rs /home/hlq/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/thiserror-2.0.18/src/display.rs /home/hlq/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/thiserror-2.0.18/src/provide.rs /home/hlq/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/thiserror-2.0.18/src/var.rs /home/hlq/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/thiserror-2.0.18/src/private.rs /mnt/d/Private_Proj/HLQ_OS/target/x86_64-unknown-none/debug/build/thiserror-df8391a3dc10175b/out/private.rs
+
+/mnt/d/Private_Proj/HLQ_OS/target/x86_64-unknown-none/debug/deps/libthiserror-05e0292d2b1a5aa7.rlib: /home/hlq/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/thiserror-2.0.18/src/lib.rs /home/hlq/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/thiserror-2.0.18/src/aserror.rs /home/hlq/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/thiserror-2.0.18/src/display.rs /home/hlq/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/thiserror-2.0.18/src/provide.rs /home/hlq/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/thiserror-2.0.18/src/var.rs /home/hlq/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/thiserror-2.0.18/src/private.rs /mnt/d/Private_Proj/HLQ_OS/target/x86_64-unknown-none/debug/build/thiserror-df8391a3dc10175b/out/private.rs
+
+/mnt/d/Private_Proj/HLQ_OS/target/x86_64-unknown-none/debug/deps/libthiserror-05e0292d2b1a5aa7.rmeta: /home/hlq/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/thiserror-2.0.18/src/lib.rs /home/hlq/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/thiserror-2.0.18/src/aserror.rs /home/hlq/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/thiserror-2.0.18/src/display.rs /home/hlq/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/thiserror-2.0.18/src/provide.rs /home/hlq/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/thiserror-2.0.18/src/var.rs /home/hlq/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/thiserror-2.0.18/src/private.rs /mnt/d/Private_Proj/HLQ_OS/target/x86_64-unknown-none/debug/build/thiserror-df8391a3dc10175b/out/private.rs
+
+/home/hlq/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/thiserror-2.0.18/src/lib.rs:
+/home/hlq/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/thiserror-2.0.18/src/aserror.rs:
+/home/hlq/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/thiserror-2.0.18/src/display.rs:
+/home/hlq/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/thiserror-2.0.18/src/provide.rs:
+/home/hlq/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/thiserror-2.0.18/src/var.rs:
+/home/hlq/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/thiserror-2.0.18/src/private.rs:
+/mnt/d/Private_Proj/HLQ_OS/target/x86_64-unknown-none/debug/build/thiserror-df8391a3dc10175b/out/private.rs:
+
+# env-dep:OUT_DIR=/mnt/d/Private_Proj/HLQ_OS/target/x86_64-unknown-none/debug/build/thiserror-df8391a3dc10175b/out
