@@ -15,15 +15,17 @@ pub extern "C" fn rust_main(_mbi_ptr: usize) -> ! {
     vga_writer::GL_VGA_WT_REF.line_o = 2;//start from line no.3 to avoid overlap with 2 previous line of the text print by boot.asm and long_mode.asm
 
     unsafe {
-        interrupts::init_idt();
+        interrupts::init();
 
         interrupts::trigger_breakpoint();
-
+        
         // interrupts::trigger_pagefault();
-    }
 
-    //Test Divide by 0 exception
-    // interrupts::trigger_de();
+        //Test Divide by 0 exception
+        // interrupts::trigger_de();
+
+        interrupts::stack_overflow();
+    }
 
     let pi = 3.14;
 

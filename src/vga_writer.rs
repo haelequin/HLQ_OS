@@ -48,6 +48,7 @@ pub static mut GL_VGA_WT:VGAWriter = VGAWriter {
     color: 0x2f,//Light green
     clear_on_overlow:true,
 };
+
 ///```no_run
 /// //Change color of global VGAwiter
 /// vga_writer::GL_VGA_WT_REF.set_color(vga_writer::VGAOutColor::Green, vga_writer::VGAOutColor::Black);
