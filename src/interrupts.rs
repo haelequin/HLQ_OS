@@ -1,13 +1,16 @@
 use core::ptr::addr_of;
 use crate::cpu_table::gdt::TSS_REF;
+use crate::io;
+use crate::pic_8259_interrupt;
 use crate::vga_println;
 use core::arch::{asm}; 
-use crate::pic_8259_interrupt;
 use crate::intr_handler;
+use crate::hw_intr_handler;
 use crate::cpu_table::*;
 
+//------CPU EXCEPTION--------------------------------------------
 #[unsafe(no_mangle)]
-pub extern "C" fn rust_handler_de() {
+pub extern "C" fn handler_de() {
     intr_handler!(de_print);
 
     extern "C" fn de_print(frame:&idt::ExceptionStackFrameNoErr) {
@@ -20,7 +23,7 @@ pub extern "C" fn rust_handler_de() {
 }
 
 // #[unsafe(no_mangle)]
-pub extern "C" fn rust_handler_bp() {
+pub extern "C" fn handler_bp() {
     intr_handler!(bp_print);
     
     extern "C" fn bp_print(frame:&idt::ExceptionStackFrameNoErr) {
@@ -30,19 +33,19 @@ pub extern "C" fn rust_handler_bp() {
 }
 
 #[unsafe(no_mangle)]
-pub extern "C" fn rust_handler_of() {
+pub extern "C" fn handler_of() {
     vga_println!("--- STACKOVERFLOW(#OF) ---");
     loop {} 
 }
 
 #[unsafe(no_mangle)]
-pub extern "C" fn rust_handler_df() {
+pub extern "C" fn handler_df() {
     vga_println!("--- DOUBLE FAULT (#DF) ---");
     loop {} // Diverge since we can't safely resume a divide-by-zero easily
 }
 
 #[unsafe(no_mangle)]
-pub extern "C" fn rust_handler_gp() {
+pub extern "C" fn handler_gp() {
     intr_handler!(gp_print);
 
     extern "C" fn gp_print(frame:&idt::ExceptionStackFrame) {
@@ -55,7 +58,7 @@ pub extern "C" fn rust_handler_gp() {
 }
 
 #[unsafe(no_mangle)]
-pub extern "C" fn rust_handler_pf() {
+pub extern "C" fn handler_pf() {
     intr_handler!(pf_print);
     
     extern "C" fn pf_print(frame:&idt::ExceptionStackFrame) {
@@ -73,6 +76,17 @@ pub extern "C" fn rust_handler_pf() {
         loop {}
     }
 }
+//------HARDWARE INTERRUPT--------------------------------------------
+#[unsafe(no_mangle)]
+pub extern "C" fn handler_timer() {
+    intr_handler!(time_print);
+
+    extern "C" fn time_print(_frame: usize) {
+        vga_println!("Timer!");
+        
+        pic_8259_interrupt::send_eoi(0); 
+    } 
+}
 
 // -- Install entries and load --------------------------------------------------
 pub unsafe fn init_idt() {
@@ -82,12 +96,13 @@ pub unsafe fn init_idt() {
         TSS_REF.ist[2] = addr_of!(OVERFLOW_STACK) as u64;
     }
 
-    idt::IDT_REF.add_interrupt(0, rust_handler_de, idt::HandlerType::INTR, 0);
-    idt::IDT_REF.add_interrupt(3, rust_handler_bp, idt::HandlerType::TRAP, 0);
-    idt::IDT_REF.add_interrupt(4, rust_handler_of, idt::HandlerType::INTR, 3);
-    idt::IDT_REF.add_interrupt(8, rust_handler_df, idt::HandlerType::INTR, 1);
-    idt::IDT_REF.add_interrupt(13, rust_handler_gp, idt::HandlerType::INTR, 0);
-    idt::IDT_REF.add_interrupt(14, rust_handler_pf, idt::HandlerType::INTR, 2);
+    idt::IDT_REF.add_interrupt(0, handler_de, idt::HandlerType::INTR, 0);
+    idt::IDT_REF.add_interrupt(3, handler_bp, idt::HandlerType::TRAP, 0);
+    idt::IDT_REF.add_interrupt(4, handler_of, idt::HandlerType::INTR, 3);
+    idt::IDT_REF.add_interrupt(8, handler_df, idt::HandlerType::INTR, 1);
+    idt::IDT_REF.add_interrupt(13, handler_gp, idt::HandlerType::INTR, 0);
+    idt::IDT_REF.add_interrupt(14, handler_pf, idt::HandlerType::INTR, 2);
+    idt::IDT_REF.add_interrupt(32, handler_timer, idt::HandlerType::INTR, 0);
 
     idt::IDT_REF.load_idt();
 }
@@ -125,9 +140,11 @@ static mut OVERFLOW_STACK:[u8;STACK_SIZE] = [0;STACK_SIZE];
 
 pub unsafe fn init() {
     unsafe {
-        init_idt();
         gdt::init_gdt();
         gdt::reload_segments();
         gdt::load_tss();
+        init_idt();
+        pic_8259_interrupt::enable_interrupt();
+        io::irq_init();
     }
 }

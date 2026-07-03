@@ -178,7 +178,7 @@ impl VGAWriter {
 
         if self.line_o >= ROW_SIZE {
             if self.clear_on_overlow {
-                self.clear_line(0);
+                self.clear();
             } else {
                 self.warn_top("Overflow");
                 return false;

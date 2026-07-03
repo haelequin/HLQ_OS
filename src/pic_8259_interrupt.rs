@@ -26,18 +26,21 @@ const CASCADE_IRQ:u8 = 2;
 
 pub fn outb(port:u16,val: u8) {
     unsafe {
-        asm!("outb {v:x}, {p:x}", v = in(reg) val as u16, p = in(reg) port);
+        asm!("out dx, al", in("al") val, in("dx") port, options(nomem, nostack, preserves_flags));
     }
 }
 
-pub fn inb(port:u16) -> u16 {
-    let ret:u16;
-
+pub fn inb(port: u16) -> u8 {
+    let val: u8;
     unsafe {
-        asm!("inb {ret:x}, {p:x}", ret = out(reg) ret, p = in(reg) port);
+        asm!(
+            "in al, dx",
+            out("al") val,
+            in("dx") port,
+            options(nomem, nostack, preserves_flags)
+        );
     }
-
-    ret
+    val
 }
 
 pub fn io_wait() {
@@ -118,22 +121,22 @@ pub fn irq_clear_mask(irq_line:u8) {
         irq_line -= 8;
     }
 
-    value = inb(port) as u8 & (1 << irq_line);
+    value = inb(port) as u8 & !(1 << irq_line);
 
     outb(port, value);        
 }
 
-pub fn send_eoi(irq_line:u8) {
+pub fn send_eoi(irq_line: u8) {
     if irq_line >= 8 {
-        outb(PIC1_COMMAND, PIC_EOI);
-        outb(PIC1_COMMAND, PIC_EOI);
+        outb(PIC2_COMMAND, PIC_EOI);
     }
+    outb(PIC1_COMMAND, PIC_EOI);
 }
 
 pub fn get_irq_reg(ocw3:u8) -> u16 {
     outb(PIC1_COMMAND, ocw3);
     outb(PIC2_COMMAND, ocw3);
-    (inb(PIC2_COMMAND) << 8) | inb(PIC1_COMMAND)
+    ((inb(PIC2_COMMAND) as u16) << 8) | (inb(PIC1_COMMAND) as u16)
 }
 
 pub fn get_irr() -> u16 {
@@ -146,7 +149,7 @@ pub fn get_isr() -> u16 {
 
 pub fn enable_interrupt() {
     unsafe {
-        asm!("sli");
+        asm!("sti");
     }
 }
 

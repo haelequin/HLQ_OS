@@ -134,6 +134,37 @@ macro_rules! intr_handler {
     };
 }
 
+#[macro_export]
+macro_rules! hw_intr_handler {
+    ($fn_h:ident) => {
+        unsafe {
+            core::arch::asm!(
+                // "push rax",
+                "push rcx",
+                "push rdx",
+                "push rsi",
+                "push rdi",
+                "push r8",
+                "push r9",
+                "push r10",
+                "push r11",
+                "call {h}",
+                "pop r11",
+                "pop r10",
+                "pop r9",
+                "pop r8",
+                "pop rdi",
+                "pop rsi",
+                "pop rdx",
+                "pop rcx",
+                "pop rax",
+                "iretq",
+                h = sym $fn_h,
+            );
+        }
+    };
+}
+
 impl Idt {
     pub fn add_interrupt(&mut self, indx:usize, handler: unsafe extern "C" fn(), h_type:HandlerType, ist:u8) -> bool {
         if indx >= 256 || ist > 7 {

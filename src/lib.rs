@@ -27,7 +27,7 @@ pub extern "C" fn rust_main(_mbi_ptr: usize) -> ! {
         //Test Divide by 0 exception
         // interrupts::trigger_de();
 
-        interrupts::stack_overflow();
+        // interrupts::stack_overflow();
     }
 
     let pi = 3.14;
