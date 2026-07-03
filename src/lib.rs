@@ -4,6 +4,9 @@
 use core::panic::PanicInfo;
 pub mod vga_writer;
 pub mod interrupts;
+pub mod pic_8259_interrupt;
+pub mod cpu_table;
+pub mod io;
 
 /// This is OS entry point. 
 /// `extern "C"` forces the compiler to use the standard C calling convention, 

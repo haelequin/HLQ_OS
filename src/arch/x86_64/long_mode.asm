@@ -21,7 +21,5 @@ long_mode_start:
     mov rax, 0x0254024f024f0242
     mov qword [0xb80aa], rax
 
-    cli
-
     call rust_main
     hlt
