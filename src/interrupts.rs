@@ -3,6 +3,7 @@ use crate::cpu_table::gdt::TSS_REF;
 use crate::io;
 use crate::pic_8259_interrupt;
 use crate::vga_println;
+use crate::vga_print;
 use core::arch::{asm}; 
 use crate::intr_handler;
 use crate::hw_intr_handler;
@@ -82,7 +83,20 @@ pub extern "C" fn handler_timer() {
     intr_handler!(time_print);
 
     extern "C" fn time_print(_frame: usize) {
-        vga_println!("Timer!");
+        vga_print!(".");
+        
+        pic_8259_interrupt::send_eoi(0); 
+    }
+}
+
+#[unsafe(no_mangle)]
+pub extern "C" fn handler_keyboard() {
+    intr_handler!(keyboard_print);
+
+    extern "C" fn keyboard_print(_frame: usize) {
+        let scancode = pic_8259_interrupt::inb(0x60);
+
+        vga_println!("keyboard {}!", scancode);
         
         pic_8259_interrupt::send_eoi(0); 
     } 
@@ -102,7 +116,9 @@ pub unsafe fn init_idt() {
     idt::IDT_REF.add_interrupt(8, handler_df, idt::HandlerType::INTR, 1);
     idt::IDT_REF.add_interrupt(13, handler_gp, idt::HandlerType::INTR, 0);
     idt::IDT_REF.add_interrupt(14, handler_pf, idt::HandlerType::INTR, 2);
+
     idt::IDT_REF.add_interrupt(32, handler_timer, idt::HandlerType::INTR, 0);
+    idt::IDT_REF.add_interrupt(33, handler_keyboard, idt::HandlerType::INTR, 0);
 
     idt::IDT_REF.load_idt();
 }
