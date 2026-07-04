@@ -1,13 +1,14 @@
 use core::ptr::addr_of;
 use crate::cpu_table::gdt::TSS_REF;
-use crate::io;
-use crate::pic_8259_interrupt;
 use crate::vga_println;
 use crate::vga_print;
 use core::arch::{asm}; 
 use crate::intr_handler;
 use crate::hw_intr_handler;
 use crate::cpu_table::*;
+
+pub mod io;
+pub mod pic_8259_interrupt;
 
 //------CPU EXCEPTION--------------------------------------------
 #[unsafe(no_mangle)]
@@ -80,7 +81,7 @@ pub extern "C" fn handler_pf() {
 //------HARDWARE INTERRUPT--------------------------------------------
 #[unsafe(no_mangle)]
 pub extern "C" fn handler_timer() {
-    intr_handler!(time_print);
+    hw_intr_handler!(time_print);
 
     extern "C" fn time_print(_frame: usize) {
         vga_print!(".");
@@ -91,7 +92,7 @@ pub extern "C" fn handler_timer() {
 
 #[unsafe(no_mangle)]
 pub extern "C" fn handler_keyboard() {
-    intr_handler!(keyboard_print);
+    hw_intr_handler!(keyboard_print);
 
     extern "C" fn keyboard_print(_frame: usize) {
         let scancode = pic_8259_interrupt::inb(0x60);

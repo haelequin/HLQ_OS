@@ -2,11 +2,12 @@
 #![no_main]
 
 use core::panic::PanicInfo;
+
+use crate::mem::paging;
 pub mod vga_writer;
 pub mod interrupts;
-pub mod pic_8259_interrupt;
 pub mod cpu_table;
-pub mod io;
+pub mod mem;
 
 /// This is OS entry point. 
 /// `extern "C"` forces the compiler to use the standard C calling convention, 
@@ -16,6 +17,7 @@ pub extern "C" fn rust_main(_mbi_ptr: usize) -> ! {
     vga_writer::GL_VGA_WT_REF.set_color(vga_writer::VGAOutColor::Green, vga_writer::VGAOutColor::Black);
         
     vga_writer::GL_VGA_WT_REF.line_o = 2;//start from line no.3 to avoid overlap with 2 previous line of the text print by boot.asm and long_mode.asm
+
 
     unsafe {
         interrupts::init();
@@ -30,9 +32,7 @@ pub extern "C" fn rust_main(_mbi_ptr: usize) -> ! {
         // interrupts::stack_overflow();
     }
 
-    let pi = 3.14;
-
-    vga_println!("hello world! using vga buffer pi = {}", pi);
+    vga_println!("hello world! using vga buffer, P4 table addr: {}", paging::load_cr3());
 
     loop {}
 }
